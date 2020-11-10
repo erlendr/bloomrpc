@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 import { Button, Icon, Modal, Tooltip, Tree, Input } from 'antd';
 import { Badge } from '../Badge/Badge';
-import { OnProtoUpload, ProtoFile, ProtoService, importProtos } from '../../behaviour';
+import { OnProtoUpload, ProtoFile, ProtoService, importProtos, downloadProtos } from '../../behaviour';
 import { PathResolution } from "./PathResolution";
 import { getImportPaths } from "../../storage";
 
@@ -66,7 +66,16 @@ export function Sidebar({ protos, onMethodSelected, onProtoUpload, onDeleteAll, 
     <>
       <div style={styles.sidebarTitleContainer}>
         <h3 style={styles.sidebarTitle}>Protos</h3>
-
+        <Tooltip placement="bottom" title="Download protos">
+          <Icon 
+            onClick={async () => {
+              await downloadProtos(onProtoUpload)
+            }}
+            type="api"
+            theme="outlined"
+            style={styles.iconDownload}
+          />
+        </Tooltip>
         <Tooltip placement="bottom" title="Import protos">
           <Icon
             onClick={() => {
@@ -218,7 +227,7 @@ export function Sidebar({ protos, onMethodSelected, onProtoUpload, onDeleteAll, 
 const styles = {
   sidebarTitleContainer: {
     display: "flex",
-    justifyContent: "space-between",
+    //justifyContent: "space-between",
     paddingTop: 14,
     paddingBottom: 4,
     paddingLeft: 20,
@@ -230,6 +239,17 @@ const styles = {
   },
   icon: {
     fontSize: 23,
+    marginBottom: 7,
+    marginRight: 12,
+    marginTop: -2,
+    color: "#28d440",
+    border: "2px solid #f3f6f9",
+    borderRadius: "50%",
+    cursor: "pointer"
+  },
+  iconDownload: {
+    fontSize: 23,
+    marginLeft: 100,
     marginBottom: 7,
     marginRight: 12,
     marginTop: -2,

@@ -3,6 +3,7 @@ import { fromFileName, mockRequestMethods, Proto, walkServices } from 'bloomrpc-
 import * as path from "path";
 import { ProtoFile, ProtoService } from './protobuf';
 import { Service } from 'protobufjs';
+// import { GRPCEventType, GRPCRequest, ResponseMetaInformation } from './';
 
 const commonProtosPath = [
   // @ts-ignore
@@ -112,4 +113,20 @@ export function importResolvePath(): Promise<string> {
     }
     resolve(filePaths[0]);
   });
+}
+
+/**
+ * Downlaod remote protofiles via reflection
+ * @param onProtoUploaded
+ */
+export async function downloadProtos(onProtoUploaded: OnProtoUpload) {
+  console.log('beep!');
+
+  const filePaths = ['static/google/rpc/reflection.proto'];
+
+  // Make sure reflection.proto is loaded
+  const protos = await loadProtos(filePaths);
+  console.log(protos);
+  // Make request
+  return;
 }
